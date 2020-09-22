@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/vdv0dsg.css">
+    <link rel="stylesheet" href="https://use.typekit.net/vdv0dsg.css">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- Animate CSS -->
+    <link rel="stylesheet" type="text/css" href="Animate/animate.css"/>
 
     <style>
         html{
@@ -31,7 +34,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mx-auto text-josefin display-5">
+                <ul id="navbar" class="navbar-nav mx-auto text-josefin display-5">
                     <li class="nav-item"><a class="nav-link mx-lg-4" href="#formulario">Hacé tu reserva</a></li>
                     <li class="nav-item"><a class="nav-link mx-lg-4" href="#">Sobre el destino</a></li>
                     <li class="nav-item"><a class="nav-link mx-lg-4" href="#contacto">Contacto</a></li>
@@ -39,24 +42,23 @@
             </div>
         </nav>
         <div class="h-75 py-5 d-flex flex-column justify-content-center">
-            <h1 class="display-1 text-libre text-white text-center">Reservá tu hotel en Bariloche</h1>
+            <h1 id="home-hero" class="display-3 text-monserrat text-uppercase text-center">Reservá tu hotel en Bariloche</h1>
         </div>
     </header>
     <main role="main" class="w-100">
         <section id="formulario" class="container form-reservas mx-auto mb-0 p-4">
-            <div class="row my-3 mx-2 text-josefin justify-content-between">
-                
+            <form class="row my-3 mx-2 text-josefin justify-content-between">
                 <div class="input-group mb-3 mb-lg-0 mr-1 p-0 col-12 col-lg-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Hotel</label>
                     </div>
-                    <select class="custom-select custom-inputs" id="inputGroupSelect01">
-                        <option value="1">Llao Llao Resort, Golf & Spa</option>  
+                    <select id="hotel" class="custom-select custom-inputs" id="inputGroupSelect01">
+                        <!-- <option value="1">Llao Llao Resort, Golf & Spa</option>  
                         <option value="2">Villa Huinid</option>  
                         <option value="3">Villa Beluno</option>  
                         <option value="4">El Casco Art Hotel</option>
                         <option value="5">Hotel Panamericano</option>
-                        <option value="6">Design Suites</option>  
+                        <option value="6">Design Suites</option>   -->
                     </select>
                   </div>
                 <div class="input-group mb-3 mb-lg-0 mr-1 p-0 col-12 col-lg-3 d-flex flex-row flex-nowrap">
@@ -64,7 +66,7 @@
                         <label class="input-group-text" for="inputGroupSelect01">Check-in</label>
                     </div>
                     <div>
-                        <input type="date" class="custom-inputs h-100 border-0 text-center">
+                        <input type="date" id="checkin" class="custom-inputs h-100 border-0 text-center">
                     </div>
                 </div>
                 <div class="input-group mb-3 mb-lg-0 mr-1 p-0 col-12 col-lg-3 d-flex flex-row flex-nowrap">
@@ -72,7 +74,7 @@
                         <label class="input-group-text" for="inputGroupSelect01">Check-out</label>
                     </div>
                     <div action="/action_page.php">
-                        <input type="date" class="custom-inputs h-100 border-0 text-center">
+                        <input type="date" id="checkout" class="custom-inputs h-100 border-0 text-center">
                     </div>
                 </div>
                 <div class="input-group mb-3 mb-lg-0 mr-1 p-0 col-12 col-lg-3">
@@ -87,28 +89,28 @@
                     </select>
                 </div>
                 <div class="input-group mb-3 mb-lg-0 mr-1 p-0 col-12 col-lg-3">
-                    <button type="button" class="btn btn-primary"><i class="fas fa-search pr-2"></i>Buscar</button>
+                    <input type="submit" id="submit" class="btn btn-primary d-block" value="Buscar">
                 </div>
-            </div>
+            </form>
         </section>
         <section class="position-relative" style="top: 0; left: 0; height: 140vh;">
             <div class="container p-0 m-0">
                 <img src="images/sunset.jpg" class="img-fluid position-absolute d-block img-sunset" width="40%">
                 <img src="images/Asset 1.png" class="img-fluid position-absolute d-block cuadrado1" width="40%">
-                <p class="text-josefin position-absolute d-block text-white display-3" style="top: 23%; right: 28%">descubrí</p>
+                <p class="text-josefin position-absolute d-block text-white display-3 wow slideInDown" style="top: 23%; right: 28%">descubrí</p>
                 <img src="images/pano-dron.jpg" class="img-fluid position-absolute d-block img-dron" width="40%">
                 <img src="images/Asset 3.png" class="img-fluid position-absolute d-block cuadrado2" width="40%">
-                <p class="text-josefin position-absolute d-block text-white text-right display-3" style="bottom: 20%; left: 5%;">paisajes <em>increíbles</em></p>
+                <p class="text-josefin position-absolute d-block text-white text-right display-3 wow slideInDown" style="bottom: 20%; left: 5%;">paisajes <em>increíbles</em></p>
             </div>
         </section>
         <section class="vh-100 position-relative parallax-2 d-flex flex-column justify-content-center" style="top: 0; left: 0">
-            <p class="text-josefin position-relative d-block text-white text-center display-2" style="z-index: 100;">dejate llevar</p>
+            <p class="text-josefin position-relative d-block text-white text-center display-2 wow slideInDown" style="z-index: 100;">dejate llevar</p>
         </section>
         <section class="vh-100 position-relative" style="top: 0; left: 0">
             <img src="images/kayak.png" class="img-fluid position-absolute d-block img-kayak" width="35%">
             <img src="images/Asset 8.png" class="img-fluid position-absolute d-block cuadrado3" width="50%">
-            <p class="text-josefin position-absolute d-block text-white text-center display-3" style="top: 25%; left: 19%">por la magia<br> de la</p>
-            <p class="text-libre position-absolute d-block text-white display-1" style="top: 50%; left: 21%">patagonia</p>
+            <p class="text-josefin position-absolute d-block text-white text-center display-3 wow slideInDown" style="top: 25%; left: 19%">por la magia<br> de la</p>
+            <p class="text-libre position-absolute d-block text-white display-1 wow slideInDown" style="top: 50%; left: 21%">patagonia</p>
         </section>
         <section id="contacto" class="vh-100 position-relative parallax-3 d-flex flex-column justify-content-center" style="top: 0; left: 0">
             <form class="form-contacto d-flex flex-column mx-auto text-josefin text-white name="contact" method="POST" data-netlify="true">
@@ -139,6 +141,10 @@
             </div>
         </nav>
     </footer>
+    <script src="Animate/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

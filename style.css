@@ -10,6 +10,13 @@ body {
   font-style: normal;
 }
 
+.text-monserrat {
+  font-family: montserrat, sans-serif;
+  font-weight: 700 !important;
+  font-style: normal;
+  letter-spacing: 10px;
+}
+
 .text-libre {
   font-family: 'Libre Caslon Display', serif;
 }
