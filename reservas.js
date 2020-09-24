@@ -1,5 +1,5 @@
 var arrayHoteles = ['Llao Llao Resort, Golf & Spa', 'Villa Huinid', 'Villa Beluno', 'El Casco Art Hotel', 'Hotel Panamericano', 'Design Suites Bariloche'];
-var huespedes = [1, 2, 3, 4];
+var arrayHuespedes = [1, 2, 3, 4];
 var arrayCategorias = ['Standard', 'Superior', 'Presidencial'];
 
 
@@ -23,25 +23,55 @@ console.log(reserva);
 const contacto = new Contacto('Laura', '12345678', 'lali@gmail.com', 'hola');
 console.log(contacto);
 
-// desafío clase DOM //
+// agrego arrayHoteles al select de hoteles //
 
-// agrego las opciones de hoteles en el form
+const hotelesSelect = document.getElementById("hotel");
+for(let i = 0; i < arrayHoteles.length; i++) {
+    const optionHotel = document.createElement('option');
+    optionHotel.value = i;
+    optionHotel.text = arrayHoteles[i];
+    hotelesSelect.appendChild(optionHotel);
+}
 
-var hoteles = document.createElement('option');
-var opciones = document.createTextNode(arrayHoteles)
-hoteles.appendChild(opciones);
-document.getElementById("hotel").appendChild(hoteles);
+// agrego arrayHuespedes al select del huespedes //
 
-// cambio color del text hero
-
-document.getElementById("home-hero").style.color = "rgba(255, 56, 93, 0.8)";
+const huespedesSelect = document.getElementById("huespedes");
+for(let i = 0; i < arrayHuespedes.length; i++) {
+    const cantidadHuespedes  = document.createElement('option');
+    cantidadHuespedes.value = i;
+    cantidadHuespedes.text = arrayHuespedes[i];
+    huespedesSelect.appendChild(cantidadHuespedes);
+}
 
 // agrego listado de categorias de habitaciones
 
-var habitaciones = document.createElement('option');
-var categorias = document.createTextNode(arrayCategorias)
+const habitaciones = document.createElement('p');
+const categorias = document.createTextNode(arrayCategorias)
 habitaciones.appendChild(categorias);
 habitaciones.setAttribute('align', 'left');
-habitaciones.setAttribute('style', 'color: white');
-document.getElementById('formulario').appendChild(habitaciones);
+habitaciones.setAttribute('style', 'color: grey');
+document.getElementById('categorias').appendChild(habitaciones);
 
+// EVENTOS //
+
+const modal = document.getElementById("modal");
+const boton = document.getElementById("submit");
+const closeBtn = document.getElementsByClassName("close")[0];
+
+boton.addEventListener('click', function(){
+    modal.style.display = "block";
+});
+
+closeBtn.addEventListener('click', function() {
+    modal.style.display = "none";
+});
+
+boton.addEventListener('click', function(event){
+    event.preventDefault()
+});
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = "none";
+    }
+};

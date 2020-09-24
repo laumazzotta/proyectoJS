@@ -65,6 +65,9 @@ body {
   background-color: #FF385D;
   border-color: #FF385D;
   border-radius: 10rem;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
 }
 
 .btn-primary:hover {
@@ -116,6 +119,68 @@ body {
 .custom-inputs {
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
+}
+
+.modal {
+  display: none;
+  z-index: 1000;
+  padding-top: 200px;
+  left: 0;
+  top: 0;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  width: 80%;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.close {
+  color: #FF385D;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #E21C5F;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  background-color: #8E9EBF;
+  color: #024873;
 }
 
 .img-sunset {
