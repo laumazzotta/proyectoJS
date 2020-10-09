@@ -95,14 +95,16 @@ for(let i = 0; i < arrayHuespedes.length; i++) {
 
 function mostrarDispo(hotel, checkin, checkout, cantHuespedes) {
 
-    const $container = $('#categorias');
+    const $container = $('#modal-info');
 
     $container.html( 
-    `<div class="d-flex flex-column w-50">
-    <h1 class="text-josefin text-uppercase mb-3"><strong>${hotel}</strong></h1>
-    <p class="text-lato"><i class="fas fa-user-friends px-2"></i>  Huéspedes: ${cantHuespedes}</p> 
-    <p class="text-lato"><i class="fas fa-plane-arrival px-2"></i>  Check in: ${checkin}</p>
-    <p class="text-lato"><i class="fas fa-plane-departure px-2"></i>  Check out: ${checkout}</p>
+    `<div class="d-flex flex-column justify-content-around">
+        <h1 class="text-josefin text-uppercase text-center mb-3"><strong>${hotel}</strong></h1>
+        <div class="d-flex flex-column flex-lg-row mt-3">
+            <p class="text-lato mx-3"><i class="fas fa-user-friends px-2"></i>  Huéspedes: ${cantHuespedes}</p> 
+            <p class="text-lato mx-3"><i class="fas fa-plane-arrival px-2"></i>  Check in: ${checkin}</p>
+            <p class="text-lato mx-3"><i class="fas fa-plane-departure px-2"></i>  Check out: ${checkout}</p>
+        </div>
     </div>
     `);
 
@@ -110,13 +112,20 @@ function mostrarDispo(hotel, checkin, checkout, cantHuespedes) {
         return elem.hotel == hotel;
     })
     opciones.forEach(elem => {
-        let content = `<form class="mx-auto my-auto">
-           <input type="radio" id="habitacion">
-           <label for="habitacion" class="px-3 py-2 text-center"> ${elem.habitacion} <br> $${elem.tarifa} </label>
-           </form>
+        let content = `<div class="d-flex flex-column flex-lg-row mx-auto">
+        <div class="card mb-3" style="width: 18rem;">
+            <img src="${elem.imgFile}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">${elem.habitacion}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.<p>
+                <p>Tarifa por noche $ ${elem.tarifa} </p>
+                <a href="#" class="btn btn-primary">Seleccionar</a>
+            </div>
+      </div>
+           </div>
         `;
 
-		$('#categorias').append(content);
+		$('#modal-categorias').append(content);
     });
     
 }

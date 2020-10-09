@@ -124,7 +124,7 @@ body {
 .modal {
   display: none;
   z-index: 1000;
-  padding-top: 200px;
+  padding-top: 50px;
   left: 0;
   top: 0;
   background-color: black;
@@ -183,6 +183,11 @@ body {
 .modal-header {
   background-color: #8E9EBF;
   color: #024873;
+}
+
+.card:hover {
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .img-sunset {
