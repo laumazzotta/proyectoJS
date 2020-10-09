@@ -169,8 +169,10 @@ $body-color: $gray;
 
 .close {
     color: $coral; 
-    font-size: 28px;
+    font-size: 2.5rem;
     font-weight: bold;
+    text-shadow: 0 1px 1px #E21C5F;
+    opacity: 1 !important;
 }
   
 .close:hover,

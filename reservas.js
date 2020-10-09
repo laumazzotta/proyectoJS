@@ -1,3 +1,10 @@
+$("h1").hover(function() {
+    $(this).css("font-family", 'Playfair Display');
+},
+function() {
+    $(this).css("font-family", "montserrat");
+});
+
 
 function Reserva(hotel, checkin, checkout, huespedes) {
     this.hotel = hotel;
@@ -43,6 +50,7 @@ function crearListado(array, key) {
 }
 
 // Armado del checkin //
+
 const dateCheckin = new Date();
 const diaCheckin = dateCheckin.getDay().toString().padStart(2, "0");
 const mesCheckin = dateCheckin.getMonth().toString().padStart(2, "0");
@@ -87,38 +95,43 @@ for(let i = 0; i < arrayHuespedes.length; i++) {
 
 function mostrarDispo(hotel, checkin, checkout, cantHuespedes) {
 
-    const container = document.getElementById('categorias');
+    const $container = $('#categorias');
 
-    container.innerHTML = 
-    `<h1 class="text-josefin"><strong>${hotel}</strong></h1>
-    <p class="text-lato">Huespedes: ${cantHuespedes}</p> 
-    <p class="text-lato">Fecha Check in: ${checkin}</p>
-    <p class="text-lato">Fecha Check out: ${checkout}</p>`
+    $container.html( 
+    `<div class="d-flex flex-column w-50">
+    <h1 class="text-josefin text-uppercase mb-3"><strong>${hotel}</strong></h1>
+    <p class="text-lato"><i class="fas fa-user-friends px-2"></i>  Huéspedes: ${cantHuespedes}</p> 
+    <p class="text-lato"><i class="fas fa-plane-arrival px-2"></i>  Check in: ${checkin}</p>
+    <p class="text-lato"><i class="fas fa-plane-departure px-2"></i>  Check out: ${checkout}</p>
+    </div>
+    `);
 
     const opciones = datosReserva.filter(elem => {
         return elem.hotel == hotel;
     })
     opciones.forEach(elem => {
-        let resultado = document.createElement('div');
-		resultado.innerHTML = elem.habitacion + ' $' + elem.tarifa;
-		container.appendChild(resultado);
-    });
+        let content = `<form class="mx-auto my-auto">
+           <input type="radio" id="habitacion">
+           <label for="habitacion" class="px-3 py-2 text-center"> ${elem.habitacion} <br> $${elem.tarifa} </label>
+           </form>
+        `;
 
-    container.style.textAlign = "center";
+		$('#categorias').append(content);
+    });
     
 }
 
 // EVENTO boton BUSCAR //
 
-const modal = document.getElementById("modal");
-const boton = document.getElementById("submit");
-const closeBtn = document.getElementsByClassName("close")[0];
+const modal = $("#modal");
+const boton = $("#submit");
+const closeBtn = $("#modal .close");
 
-boton.addEventListener('click', function(){
-    const hotel = document.getElementById("hotel").value;
-    const checkin = document.getElementById("checkin").value;
-    const checkout = document.getElementById("checkout").value;
-    const cantHuespedes = document.getElementById("huespedes").value;
+boton.click(function(){
+    const hotel = $("#hotel").val();
+    const checkin = $("#checkin").val();
+    const checkout = $("#checkout").val();
+    const cantHuespedes = $("#huespedes").val();
 
     localStorage.setItem('hotel', hotel);
     localStorage.setItem('checkin', checkin);
@@ -127,23 +140,21 @@ boton.addEventListener('click', function(){
 
     mostrarDispo(hotel, checkin, checkout, cantHuespedes)
 
-    modal.style.display = "block";
+    modal.show();
 
 });
 
-closeBtn.addEventListener('click', function() {
-    modal.style.display = "none";
+closeBtn.click(function(){
+    modal.hide();
 });
 
-boton.addEventListener('click', function(event){
-    event.preventDefault()
+$('#submit').click(function (event) {
+    event.preventDefault();
 });
 
 window.onclick = function(event) {
-    if (event.target == modal) {
-    modal.style.display = "none";
+    if (event.target.id == "modal") {
+        modal.hide();
     }
 };
-
-
 
