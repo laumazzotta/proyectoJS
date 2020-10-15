@@ -68,6 +68,9 @@ body {
   max-width: -webkit-fit-content;
   max-width: -moz-fit-content;
   max-width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .btn-primary:hover {
@@ -280,6 +283,16 @@ body {
   border-radius: 1rem;
   border: none;
   opacity: .7;
+}
+
+.rounded-left {
+  border-top-left-radius: 1rem !important;
+  border-bottom-left-radius: 1rem !important;
+}
+
+.rounded-right {
+  border-top-right-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
 }
 
 @media screen and (max-width: 576px) {

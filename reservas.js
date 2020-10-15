@@ -1,16 +1,12 @@
-$("h1").hover(function() {
-    $(this).css("font-family", 'Playfair Display');
-},
-function() {
-    $(this).css("font-family", "montserrat");
-});
 
 
-function Reserva(hotel, checkin, checkout, huespedes) {
+function Reserva(hotel, checkin, checkout, huespedes, habitacion, tarifa) {
     this.hotel = hotel;
     this.checkin = checkin;
     this.checkout = checkout;
     this.huespedes = huespedes;
+    this.habitacion = habitacion;
+    this.tarifa = tarifa;
 }
 
 function Contacto(nombre, telefono, email, mensaje) {
@@ -91,9 +87,12 @@ for(let i = 0; i < arrayHuespedes.length; i++) {
     huespedesSelect.appendChild(cantidadHuespedes);
 }
 
-// Armado lista de categorias de habitaciones y tarifas
+localStorage.huespedes = huespedesSelect.value;
 
-function mostrarDispo(hotel, checkin, checkout, cantHuespedes) {
+// Armado lista de categorias de habitaciones y tarifas
+let reserva = null;
+
+function mostrarDispo(hotel, checkin, checkout, huespedes) {
 
     const $container = $('#modal-info');
 
@@ -101,7 +100,7 @@ function mostrarDispo(hotel, checkin, checkout, cantHuespedes) {
     `<div class="d-flex flex-column justify-content-around">
         <h1 class="text-josefin text-uppercase text-center mb-3"><strong>${hotel}</strong></h1>
         <div class="d-flex flex-column flex-lg-row mt-3">
-            <p class="text-lato mx-3"><i class="fas fa-user-friends px-2"></i>  Huéspedes: ${cantHuespedes}</p> 
+            <p class="text-lato mx-3"><i class="fas fa-user-friends px-2"></i>  Huéspedes: ${huespedes}</p> 
             <p class="text-lato mx-3"><i class="fas fa-plane-arrival px-2"></i>  Check in: ${checkin}</p>
             <p class="text-lato mx-3"><i class="fas fa-plane-departure px-2"></i>  Check out: ${checkout}</p>
         </div>
@@ -111,21 +110,83 @@ function mostrarDispo(hotel, checkin, checkout, cantHuespedes) {
     const opciones = datosReserva.filter(elem => {
         return elem.hotel == hotel;
     })
+
+    const modalCategorias = $('#modal-categorias');
+    modalCategorias.html('');
+
     opciones.forEach(elem => {
-        let content = `<div class="d-flex flex-column flex-lg-row mx-auto">
+        let content = $(`<div class="d-flex flex-column flex-lg-row mx-auto">
         <div class="card mb-3" style="width: 18rem;">
             <img src="${elem.imgFile}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${elem.habitacion}</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.<p>
                 <p>Tarifa por noche $ ${elem.tarifa} </p>
-                <a href="#" class="btn btn-primary">Seleccionar</a>
+                <button type="submit" class="btn btn-primary">Seleccionar</button>
             </div>
       </div>
            </div>
-        `;
+        `);
 
-		$('#modal-categorias').append(content);
+        content.find('button').click(function (e) {
+            $container.html('');
+
+            $('#modal-categorias').removeClass('d-flex').addClass('d-none');
+            $('#modal-header-1').hide();
+            
+            $('#modal-reserva').removeClass('d-none').addClass('d-flex');
+            $('#modal-header-2').show();
+
+            let checkinReserva = localStorage.getItem('checkin');
+            let checkoutReserva = localStorage.getItem('checkout');
+            const totalNoches = moment(checkoutReserva).diff(moment(checkinReserva), 'days');
+            console.log(totalNoches);
+
+            $('#modal-reserva').html(`
+                <form class="form-contacto d-flex flex-column ml-4 w-50 text-josefin">
+                    <input type="text" name="nombre" placeholder="nombre y apellido:" required class="p-3 mb-4"/>
+                    <input type="text" name="nacionalidad" placeholder="nacionalidad:" required class="p-3 mb-4"/>
+                    <input type="tel" name="telefono" placeholder="teléfono" class="p-3 mb-4"/>
+                    <input type="email" name="email" placeholder="email" required class="p-3 mb-4"/>
+                </form>
+            <div class="d-flex flex-column justify-content-around ml-4 w-50 text-josefin display-5 mb-4">
+                <h2 class="mb-3">Detalle de tu reserva:</h2>
+                <ul>
+                    <li class="mb-3">Hotel: <b>${hotel} </b></li>
+                    <li class="mb-3">Categoría de habitación: <b>${elem.habitacion} </b></li>
+                    <li class="mb-3">Total de noches: <b> ${totalNoches} </b></li>
+                    <li class="mb-3">Monto total de la reserva: <b>$ ${elem.tarifa * totalNoches} </b></li>
+                </ul>
+                <button id="confirmar-reserva" type="submit" class="btn btn-primary align-self-end mr-5" style="font-size: 1.5rem">Confirmar</button>
+            </div>
+            `);
+
+            reserva = new Reserva(elem.hotel, checkinReserva, checkoutReserva, localStorage.getItem('huespedes'), elem.habitacion, elem.tarifa);
+
+            $('#confirmar-reserva').click(function(e) {
+                $.ajax({
+                    url: "/confirmacion.json",
+                    dataType: "json",
+                    success: function (response) {
+                        let msg = `${response.confirmacion}. <br>Código de reserva: ${response.codigo}. <br>Te enviaremos un email con todos los datos de tu reserva.`;
+
+                        $('#modal-reserva').removeClass('d-flex').addClass('d-none');
+                        $('#modal-confirmacion').removeClass('d-none').addClass('d-flex');
+                        $('#modal-header-2').hide();
+                        $('#modal-header-3').show();
+                        
+                        $('#modal-confirmacion').html(msg);
+                    }
+                });
+            });
+
+        });
+
+        content.appendTo(modalCategorias);
+
+
+
+		// modalCategorias.append(content);
     });
     
 }
@@ -136,18 +197,19 @@ const modal = $("#modal");
 const boton = $("#submit");
 const closeBtn = $("#modal .close");
 
+
 boton.click(function(){
     const hotel = $("#hotel").val();
     const checkin = $("#checkin").val();
     const checkout = $("#checkout").val();
-    const cantHuespedes = $("#huespedes").val();
+    const huespedes = $("#huespedes").val();
 
     localStorage.setItem('hotel', hotel);
     localStorage.setItem('checkin', checkin);
     localStorage.setItem('checkout', checkout);
-    localStorage.setItem('cantHuespedes', cantHuespedes);
+    localStorage.setItem('huespedes', huespedes);
 
-    mostrarDispo(hotel, checkin, checkout, cantHuespedes)
+    mostrarDispo(hotel, checkin, checkout, huespedes)
 
     modal.show();
 
@@ -166,4 +228,7 @@ window.onclick = function(event) {
         modal.hide();
     }
 };
+
+
+
 
