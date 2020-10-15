@@ -284,7 +284,7 @@ $body-color: $gray;
     opacity: .7;
 }    
 
-// ****** CHECKOUT.HTML ****** //
+// ****** hoteles.HTML ****** //
 
 .rounded-left {
     border-top-left-radius: 1rem !important;
@@ -294,6 +294,11 @@ $body-color: $gray;
 .rounded-right {
     border-top-right-radius: 1rem !important;
     border-bottom-right-radius: 1rem !important;
+}
+
+.list-group-item.active {
+    background-color: $coral;
+    border-color: $coral;
 }
 
 @media screen and (max-width: 576px) {

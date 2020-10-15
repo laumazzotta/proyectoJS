@@ -295,6 +295,11 @@ body {
   border-bottom-right-radius: 1rem !important;
 }
 
+.list-group-item.active {
+  background-color: #FF385D;
+  border-color: #FF385D;
+}
+
 @media screen and (max-width: 576px) {
   .vh-xs-100 {
     height: 100vh;
