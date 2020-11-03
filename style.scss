@@ -55,6 +55,9 @@ $primary: $coral;
 $secondary: $blue;
 $body-color: $gray;
 
+.text-coral {
+    color: $coral;
+}
 
 .background-white {
     background-color: white;
@@ -116,25 +119,36 @@ $body-color: $gray;
     background-size: cover;
 }
 
+#form-busqueda {
+    background-color: rgb(255, 255, 255);
+    font-family: $font-family-primary;
+    font-weight: 500;
+    font-size: 1.2rem;
+    width: fit-content;
+}
+
+#form-busqueda > label, select, input{
+    margin: .5rem 1rem .5rem 0;
+}
+
+#form-busqueda > select, input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: groove;
+}
+#form-busqueda > label {
+    font-size: 1.4rem;
+    color: $blue;
+}
+
 .form-reservas {
-    margin-top: -12rem;
-    background: rgb(142,158,191);
-    background: linear-gradient(290deg, rgba(2,72,115,0.8) 0%, rgba(2,74,89,0.8) 100%);
+    margin-top: 5rem;
     border-radius: .3rem;
 }
 
-.input-group {
-    max-width: fit-content;
-}
-
-.input-group-text {
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-}
-
-.custom-inputs {
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+.rounded-pill {
+    border-radius: 4rem !important;
 }
 
 .modal {
@@ -192,28 +206,38 @@ $body-color: $gray;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.img-sunset {
-    top: 20%;
-    left: 5%;
-    z-index: 100;
+.btn-volver {
+    color: $coral;
+    background-color: white;
+    border-color: $coral;
+    border-radius: 10rem;
+    max-width: fit-content;
+    height: fit-content;
 }
 
-.cuadrado1 {
-    top: 23%;
-    left: 3%;
-    opacity: 0.3;
+.descubri, 
+.paisajes {
+    background-color: rgb(38, 43, 46);
+    width: inherit;
+    height: 418px;
+    transition: all .8s ease;
+    top: 0;
+    left: 0;
 }
 
-.img-dron {
-    bottom: 17%;
-    right: 5%;
-    z-index: 100;
+.foto-descubri {
+    top: 0;
+    left: 0;
+    transition: all 1s ease;
+    opacity: 0;
+    height: 100%;
 }
 
-.cuadrado2 {
-    bottom: 20%;
-    right: 7%;
-    opacity: 0.3;
+.descubri, .paisajes:hover {
+    background-color: rgba(38, 43, 46, 0);
+}
+.foto-descubri:hover {
+    opacity: 1;
 }
 
 .parallax-2 {
@@ -236,20 +260,10 @@ $body-color: $gray;
     z-index: 10;
 }
 
-.img-kayak {
-    top: calc(50% - 241px);
-    right: 15%;
-    z-index: 100;
-}
-
-.cuadrado3 {
-    top: calc(50% - 278px);
-    left: 15%;
-}
 
 .parallax-3 {
     background-image: url(images/Panoramica3.jpg);
-    height: 100vh;
+    height: 110vh;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -301,9 +315,59 @@ $body-color: $gray;
     border-color: $coral;
 }
 
-@media screen and (max-width: 576px) {
+.w-lg-50 {
+    width: 50%;
+}
+
+.btn-link {
+    color: black;
+    font-weight: 200;
+}
+
+.btn-link:hover, 
+.card-header:hover {
+    background-color: $coral;
+    border-color: $coral;   
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-toggler {
+    padding: 1rem 1.2rem;
+    font-size: 2rem;
+    line-height: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: .25rem;
+}
+
+.fondo-dedo-conf {
+    animation: fondo 1s linear forwards;
+}
+
+@keyframes fondo {
+    0% {right:-300px; opacity:0}
+    50% {right:10px; transform: rotate(180deg); opacity: 0;}
+    100% {right:calc(50% - 70px); transform: rotate(360deg); opacity:1}
+}
+
+.dedo-conf {
+    animation: dedo 1s linear forwards;
+}
+
+@keyframes dedo {
+    0% {left:-300px; opacity:0}
+    50% {left:10px; transform: rotate(-180deg); opacity: 0.5;}
+    100% {left:calc(50% - 70px); transform: rotate(-360deg); opacity:1}
+}
+
+@media screen and (max-width: 992px) {
     .vh-xs-100 {
         height: 100vh;
+    }
+
+    .display-3 {
+        font-size: 2rem;
     }
 
     .display-1 {
@@ -311,8 +375,9 @@ $body-color: $gray;
     }
 
     .navbar-nav { 
-        background-color: #024873f3;
-        height: 60vh;
+        background-color: #000000f3;
+        // height: fit-content;
+        text-align: left;
     }
 
     .navbar {
@@ -320,9 +385,80 @@ $body-color: $gray;
     }
 
     .form-reservas {
-        background: linear-gradient(290deg, rgba(88,122,166,1) 0%, rgba(2,72,115,1) 50%, rgba(2,74,89,1) 100%);
-        border-radius: 0;
+        background: none;
+        top: 0;
+        left: 0;
     }
 
+    #boton-reservar-mobile {
+        font-size: 2rem;
+        font-weight: 300 !important;
+        line-height: .8;
+        left: calc(50% - 122.5px);
+    }
+
+    #form-busqueda{
+        position: absolute;
+        left: calc(50% - 169px);
+        top: 0;
+        z-index: 100;
+    }
+
+    .animacion-reservar {
+        animation: boton .5s ease-out forwards;
+    }
+
+    .modal {
+        padding-top: 0;
+    }
+
+    .modal-content {
+        width: 100%;
+    }
+
+    @keyframes boton {
+        from {top:0; opacity:0}
+        to {top:-870%; opacity:1}
+    }
+
+    #form-busqueda > .close{
+        font-weight: normal;
+        line-height: 0;
+    }
+
+    .animacion--out-reservar {
+        animation: botonOut 1s ease-out forwards;
+    }
+
+    @keyframes botonOut {
+        from {top:-870%; opacity:1}
+        to {top:0; opacity:0}
+    }
+
+    .w-xs-75 {
+        width: 75%;
+    }
+
+    .w-xs-100 {
+        width: 100% !important;
+    }
+    
+    #form-busqueda > #submit {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .lista-reserva {
+        list-style: none;
+        font-size: 1.2rem;
+        border: solid 1px $coral;
+        border-radius: 10%;
+        padding: 1.2rem;
+        margin: 1rem auto 1.5rem auto;
+    }
+
+    .container-descubri {
+        height: 50vh;
+    }
 
 }

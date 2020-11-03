@@ -1,5 +1,4 @@
 
-
 function Reserva(hotel, checkin, checkout, huespedes, habitacion, tarifa) {
     this.hotel = hotel;
     this.checkin = checkin;
@@ -9,12 +8,15 @@ function Reserva(hotel, checkin, checkout, huespedes, habitacion, tarifa) {
     this.tarifa = tarifa;
 }
 
-function Contacto(nombre, telefono, email, mensaje) {
-    this.nombre = nombre;
-    this.telefono = telefono;
-    this.email = email;
-    this.mensaje = mensaje;
-}
+$("#boton-reservar-mobile").click(function () {
+    $("#form-busqueda").removeClass('d-none, animacion--out-reservar').addClass('d-flex'); 
+    $("#boton-reservar-mobile").removeClass('d-block').addClass('d-none');
+});
+
+$("#form-busqueda .close").click(function () {
+    $("#form-busqueda").removeClass('d-flex').addClass('animacion--out-reservar'); 
+    $("#boton-reservar-mobile").removeClass('d-none').addClass('d-block');
+});
 
 const hotelesSelect = document.getElementById("hotel");
 
@@ -143,23 +145,47 @@ function mostrarDispo(hotel, checkin, checkout, huespedes) {
             console.log(totalNoches);
 
             $('#modal-reserva').html(`
-                <form class="form-contacto d-flex flex-column ml-4 w-50 text-josefin">
+                <form class="form-contacto d-flex flex-column ml-2 ml-lg-4 w-lg-50 w-xs-100 text-josefin">
                     <input type="text" name="nombre" placeholder="nombre y apellido:" required class="p-3 mb-4"/>
                     <input type="text" name="nacionalidad" placeholder="nacionalidad:" required class="p-3 mb-4"/>
                     <input type="tel" name="telefono" placeholder="teléfono" class="p-3 mb-4"/>
                     <input type="email" name="email" placeholder="email" required class="p-3 mb-4"/>
                 </form>
-            <div class="d-flex flex-column justify-content-around ml-4 w-50 text-josefin display-5 mb-4">
+            <div class="d-flex flex-column text-center text-lg-left justify-content-lg-around ml-lg-4 w-lg-50 w-xs-100 text-josefin display-5 mb-4">
                 <h2 class="mb-3">Detalle de tu reserva:</h2>
-                <ul>
+                <ul class="lista-reserva">
                     <li class="mb-3">Hotel: <b>${hotel} </b></li>
                     <li class="mb-3">Categoría de habitación: <b>${elem.habitacion} </b></li>
                     <li class="mb-3">Total de noches: <b> ${totalNoches} </b></li>
                     <li class="mb-3">Monto total de la reserva: <b>$ ${elem.tarifa * totalNoches} </b></li>
                 </ul>
-                <button id="confirmar-reserva" type="submit" class="btn btn-primary align-self-end mr-5" style="font-size: 1.5rem">Confirmar</button>
+                <div class="d-flex flex-row justify-content-center justify-content-lg-end">
+                    <button id="boton-volver" type="submit" class="btn btn-volver mr-4" style="font-size: 1.5rem">Volver</button>
+                    <button id="confirmar-reserva" type="submit" class="btn btn-primary align-self-end mr-lg-5" style="font-size: 1.5rem">Confirmar</button>
+                </div>
             </div>
             `);
+
+            const botonVolver = $("#boton-volver");
+            botonVolver.click(function(){
+                $('#modal-reserva').removeClass('d-flex').addClass('d-none');
+                $('#modal-header-2').hide();
+
+                $('#modal-categorias').removeClass('d-none').addClass('d-flex');
+                $('#modal-header-1').show();
+
+                $container.html( 
+                    `<div class="d-flex flex-column justify-content-around">
+                        <h1 class="text-josefin text-uppercase text-center mb-3"><strong>${hotel}</strong></h1>
+                        <div class="d-flex flex-column flex-lg-row mt-3">
+                            <p class="text-lato mx-3"><i class="fas fa-user-friends px-2"></i>  Huéspedes: ${huespedes}</p> 
+                            <p class="text-lato mx-3"><i class="fas fa-plane-arrival px-2"></i>  Check in: ${checkin}</p>
+                            <p class="text-lato mx-3"><i class="fas fa-plane-departure px-2"></i>  Check out: ${checkout}</p>
+                        </div>
+                    </div>
+                    `);
+
+            });    
 
             reserva = new Reserva(elem.hotel, checkinReserva, checkoutReserva, localStorage.getItem('huespedes'), elem.habitacion, elem.tarifa);
 
@@ -168,7 +194,14 @@ function mostrarDispo(hotel, checkin, checkout, huespedes) {
                     url: "/confirmacion.json",
                     dataType: "json",
                     success: function (response) {
-                        let msg = `${response.confirmacion}. <br>Código de reserva: ${response.codigo}. <br>Te enviaremos un email con todos los datos de tu reserva.`;
+                        let msg = `${response.confirmacion} <br>
+                        
+                        <img src="images/fondo.svg" class="fondo-dedo-conf position-absolute" width="140px" style="bottom: 5%;">
+                        <img src="images/dedo.svg" class="dedo-conf position-absolute" width="100px" style="bottom: 13%;">
+                        
+                        Código de reserva: <b>${response.codigo}</b>
+                        
+                        Te enviaremos un email con todos los datos de tu reserva.`;
 
                         $('#modal-reserva').removeClass('d-flex').addClass('d-none');
                         $('#modal-confirmacion').removeClass('d-none').addClass('d-flex');
@@ -180,13 +213,10 @@ function mostrarDispo(hotel, checkin, checkout, huespedes) {
                 });
             });
 
-        });
+        });  
 
         content.appendTo(modalCategorias);
 
-
-
-		// modalCategorias.append(content);
     });
     
 }
@@ -228,7 +258,3 @@ window.onclick = function(event) {
         modal.hide();
     }
 };
-
-
-
-
